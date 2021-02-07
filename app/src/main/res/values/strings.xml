@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">新蜂商城</string>
+    <string name="skip">跳过 %1$d s</string>
+    <string name="newBeeMall">新蜂商城</string>
 </resources>
