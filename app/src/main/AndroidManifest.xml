@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shiromoku.newbeeMall">
 
     <application
@@ -8,7 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.新蜂商城">
+        android:theme="@style/Theme.新蜂商城"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +22,8 @@
         <activity android:name=".MainActivity">
 
         </activity>
+
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

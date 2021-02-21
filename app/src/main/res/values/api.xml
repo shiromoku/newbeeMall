@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="root">http://www.yixiaojun.cn:8086</string>
+    <string name="index">/api/v1/index-infos</string>
+    <string name="login">/</string>
+    <string name="logout">/api/v1/user/logout</string>
+</resources>
