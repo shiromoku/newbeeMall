@@ -15,8 +15,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.shiromoku.newbeeMall.R
+import com.shiromoku.newbeeMall.adapter.HomeFragmentMainListView
 import com.shiromoku.newbeeMall.adapter.HomeFragmentViewPagerAdapter
 import com.shiromoku.newbeeMall.database.Database
+import com.shiromoku.newbeeMall.entity.Goods
 import com.shiromoku.newbeeMall.tools.NetworkTools
 import com.shiromoku.shiromokulearn.tool.PathTool
 import org.json.JSONArray
@@ -36,6 +38,8 @@ class HomeFragment : Fragment() {
     lateinit var imageDatabase: Database
     lateinit var keyValueDatabase: Database
 
+    lateinit var mainListView: ListView
+
     lateinit var carousels: JSONArray
     lateinit var hotGoodses: JSONArray
     lateinit var newGoodses: JSONArray
@@ -52,6 +56,8 @@ class HomeFragment : Fragment() {
 
         imageDatabase = Database(context!!, "goodsImage")
         keyValueDatabase = Database(context!!, "keyValue")
+
+        mainListView = view.findViewById(R.id.home_fragment_main_list_view)
 
 
 
@@ -73,6 +79,7 @@ class HomeFragment : Fragment() {
                             102 -> {
                                 initViewPager()
                             }
+                            103 -> initMainListView()
                         }
                     }
                     200 -> {
@@ -92,9 +99,18 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    private fun initMainListView() {
+        var goodsView:View = View.inflate(context,R.layout.layout_goods_list,null)
+        val text:TextView = goodsView.findViewById(R.id.layout_goods_list_title)
+//        mainListView.adapter = HomeFragmentMainListView()
+        // TODO: 2021/2/23 try use HorizontalScrollView
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadData()
+//        parseGoodsInfo()
     }
 
     private fun loadData() {
@@ -153,8 +169,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewPager() {
-//        val mImg = arrayListOf(R.drawable.banner1, R.drawable.banner2)
-//        val mDec = arrayListOf("banner1", "banner2")
         var imageBitmapArray = emptyArray<Bitmap>()
 
         val hasBanner = keyValueDatabase.find(null, arrayOf("key"), arrayOf("banner"))
@@ -184,7 +198,6 @@ class HomeFragment : Fragment() {
         var linearParams: LinearLayout.LayoutParams?
         for (i in imageBitmapArray.indices) {
             imageView = ImageView(this.context)
-//            imageView.setImageResource(mImg[i])
             imageView.setImageBitmap(imageBitmapArray[i])
             mImgList.add(imageView)
 
@@ -196,7 +209,6 @@ class HomeFragment : Fragment() {
         }
 
         dotLinear.getChildAt(0).isEnabled = true
-//        textView.text = mDec[0]
 
         viewPager.adapter = HomeFragmentViewPagerAdapter(mImgList)
 
@@ -211,7 +223,6 @@ class HomeFragment : Fragment() {
             }
 
             override fun onPageSelected(position: Int) {
-//                textView.text = mDec[position]
                 dotLinear.getChildAt(previousSelectedPosition).isEnabled = false
                 dotLinear.getChildAt(position).isEnabled = true
                 previousSelectedPosition = position
@@ -226,7 +237,7 @@ class HomeFragment : Fragment() {
         Thread {
             while (true) {
                 try {
-                    sleep(7000)
+                    sleep(6000)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
